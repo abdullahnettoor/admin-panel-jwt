@@ -26,6 +26,7 @@ func main() {
 	r.POST("/login", handlers.LoginPost)
 	r.GET("/signup", handlers.Signup)
 	r.POST("/signup", handlers.SignupPost)
+	r.GET("/logout", handlers.Logout)
 
 	// r.GET("/ping", func(c *gin.Context) {
 	// 	c.JSON(200, gin.H{

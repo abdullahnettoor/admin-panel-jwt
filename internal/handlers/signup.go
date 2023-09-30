@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/abdullahnettoor/admin-panel-jwt/internal/initializers"
 	"github.com/abdullahnettoor/admin-panel-jwt/internal/models"
@@ -15,6 +16,10 @@ func Signup(c *gin.Context) {
 	utils.ClearCache(c)
 
 	// Check if user already logged in
+	if utils.ContainValidToken(c) {
+		c.Redirect(http.StatusFound, "/")
+		return
+	}
 
 	// Load signup page
 	c.HTML(http.StatusOK, "signup.html", nil)
@@ -24,11 +29,17 @@ func SignupPost(c *gin.Context) {
 	// Clear Cache
 	utils.ClearCache(c)
 
+	// Check if user already logged in
+	if utils.ContainValidToken(c) {
+		c.Redirect(http.StatusFound, "/")
+		return
+	}
+
 	// Recieve values from form
 	newUser := models.User{
-		Name:     c.Request.FormValue("name"),
-		Email:    c.Request.FormValue("email"),
-		Password: c.Request.Form.Get("password"),
+		Name:     strings.TrimSpace(c.Request.FormValue("name")),
+		Email:    strings.TrimSpace(c.Request.FormValue("email")),
+		Password: strings.TrimSpace(c.Request.Form.Get("password")),
 	}
 	confirmPassword := c.Request.Form.Get("confirm-password")
 
@@ -60,9 +71,10 @@ func SignupPost(c *gin.Context) {
 		c.HTML(http.StatusNotAcceptable, "signup.html", "Something went wrong. Try again")
 		return
 	}
-	// user := initializers.DB.Exec("INSERT INTO users (name, email, password) VALUES (?, ?, ?);", newUser.Name, newUser.Email, newUser.Password)
+
 	fmt.Println("User created successfully with id:", newUser.ID)
+	utils.CreateToken(c, newUser)
 
 	// Redirect to Home page
-	c.HTML(http.StatusOK, "index.html", newUser)
+	c.HTML(http.StatusOK, "index.html", newUser.Name)
 }

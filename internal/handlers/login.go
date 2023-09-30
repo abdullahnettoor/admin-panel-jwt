@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -11,13 +12,30 @@ import (
 )
 
 func Login(c *gin.Context) {
+	// Clear Cache of browser
+	utils.ClearCache(c)
 
-	c.HTML(http.StatusOK, "login.html", nil)
+	// Checks if User already logged in
+	if utils.ContainValidToken(c) {
+		c.Redirect(http.StatusFound, "/")
+		return
+	}
+
+	// Load Login
+	msg := c.GetString("message")
+	fmt.Println("Msg is:", msg)
+	c.HTML(http.StatusOK, "login.html", msg)
 }
 
 func LoginPost(c *gin.Context) {
 	// Clear Cache of browser
 	utils.ClearCache(c)
+
+	// Check if user already logged in
+	if utils.ContainValidToken(c) {
+		c.Redirect(http.StatusFound, "/")
+		return
+	}
 
 	// Collect form data
 	user := models.User{
@@ -43,5 +61,11 @@ func LoginPost(c *gin.Context) {
 		return
 	}
 
-	c.HTML(http.StatusOK, "index.html", dbUser)
+	// Generate Token and Create Cookie
+	utils.CreateToken(c, dbUser)
+
+	// Load home
+	uName := c.GetString("username")
+	fmt.Println(uName)
+	c.HTML(http.StatusOK, "index.html", uName)
 }
