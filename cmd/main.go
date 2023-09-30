@@ -23,6 +23,7 @@ func main() {
 
 	r.GET("/", handlers.Home)
 	r.GET("/login", handlers.Login)
+	r.POST("/login", handlers.LoginPost)
 	r.GET("/signup", handlers.Signup)
 	r.POST("/signup", handlers.SignupPost)
 
