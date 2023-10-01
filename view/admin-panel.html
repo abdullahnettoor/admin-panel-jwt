@@ -25,40 +25,42 @@
                             <div class="ml-10 flex justify-between items-baseline space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                                    aria-current="page">Dashboard</a>
+                                    aria-current="page">Users</a>
                             </div>
                         </div>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
-                            <button type="button"
+                            <!-- <button type="button"
                                 class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="absolute -inset-1.5"></span>
-                                <span class="sr-only">View notifications</span>
+                                <span class="sr-only">View notifications</span> -->
                                 <!-- <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                                 </svg> -->
-                                <a href="/logout"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Logout</a>
 
-                            </button>
+                            <!-- </button> -->
+                            <i class="far fa-user text-white"></i>
+                            <p class="text-gray-300 px-3 py-2 text-sm font-medium">{{.Admin}}</p>
+                            <a href="/logout"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Logout</a>
 
                             <!-- Profile dropdown -->
-                            <div class="relative ml-3">
+                            <!-- <div class="relative ml-3">
                                 <div>
                                     <button type="button"
                                         class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                         id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                         <span class="absolute -inset-1.5"></span>
                                         <span class="sr-only">Open user menu</span>
-                                        <img class="h-8 w-8 rounded-full"
+                                         <img class="h-8 w-8 rounded-full"
                                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                            alt="">
+                                            alt=""> 
                                     </button>
                                 </div>
-
+                            -->
                                 <!--                                 
                   Dropdown menu, show/hide based on menu state.
   
@@ -126,6 +128,7 @@
                 <div class="border-t border-gray-700 pb-3 pt-4">
                     <div class="flex items-center px-5">
                         <div class="flex-shrink-0">
+
                             <img class="h-10 w-10 rounded-full"
                                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                 alt="">
@@ -161,7 +164,7 @@
 
         <header class="bg-white shadow">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Admin Dashboard</h1>
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900">iStore Dashboard</h1>
             </div>
         </header>
         <main>
@@ -170,26 +173,32 @@
                 <section class="antialiased bg-gray-100 text-gray-600 h-screen px-4">
                     <div class="flex flex-col justify-start pt-5 h-full">
                         <!-- Table -->
-                        <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+                        <div class="w-full  mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                             <header class="px-5 py-4 border-b border-gray-100">
                                 <h2 class="font-semibold text-gray-800">Users List</h2>
                             </header>
                             <div class="p-3">
                                 <div class="overflow-x-auto">
-                                    <table class="table-auto w-full">
+                                    <table class="table-fixed w-full">
                                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                             <tr>
-                                                <th class="p-2 whitespace-nowrap">
+                                                <th class="p-2 whitespace-nowrap w-80">
                                                     <div class="font-semibold text-left">ID</div>
                                                 </th>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Name</div>
                                                 </th>
-                                                <th class="p-2 whitespace-nowrap">
+                                                <th class="p-2 whitespace-nowrap w-1/5">
                                                     <div class="font-semibold text-left">Email</div>
                                                 </th>
-                                                <th class="p-2 whitespace-nowrap">
-                                                    <div class="font-semibold text-left">Role</div>
+                                                <th class="p-2 whitespace-nowrap w-1/12">
+                                                    <div class="font-semibold text-center">Role</div>
+                                                </th>
+                                                <th class="p-2 whitespace-nowrap w-28">
+                                                    <div class="font-semibold text-left">Created At</div>
+                                                </th>
+                                                <th class="p-2 whitespace-nowrap w-28">
+                                                    <div class="font-semibold text-left">Updated At</div>
                                                 </th>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">Edit/Delete</div>
@@ -197,38 +206,46 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-sm divide-y divide-gray-100">
+
+
+                                            <!-- Custom TABLE DATA-->
+                                            {{range .UsersList}}
                                             <tr>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">kufkggkgh</div>
+                                                    <div class="text-left truncate">{{.ID}}</div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <div class="font-medium text-gray-800">Alex Shatov</div>
-                                                    </div>
+                                                    <div class="font-medium text-gray-800">{{.Name}}</div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left">alexshatov@gmail.com</div>
+                                                    <div class="text-left">{{.Email}}</div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <div class="text-left font-medium text-green-500">Admin</div>
+                                                    <div class="text-center font-medium text-green-500">{{if
+                                                        .IsAdmin}}Admin{{else}}User{{end}}</div>
                                                 </td>
                                                 <td class="p-2 whitespace-nowrap">
-                                                    <button
+                                                    <div class="text-left font-medium text-green-500 truncate">
+                                                        {{.CreatedAt}}</div>
+                                                </td>
+                                                <td class="p-2 whitespace-nowrap">
+                                                    <div class="text-left font-medium text-green-500 truncate">
+                                                        {{.UpdatedAt}}</div>
+                                                </td>
+                                                <td class="p-2 whitespace-nowrap">
+                                                    <a href="/admin/edit/{{.ID}}"
                                                         class="bg-green-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-3 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                         type="button">
-                                                        <a href="/edit/{{.ID}}">
-                                                            <i class="far fa-edit"></i>
-                                                        </a>
-                                                    </button>
-                                                    <button
+                                                        <i class="far fa-edit"></i>
+                                                    </a>
+                                                    <a href="/admin/delete/{{.ID}}"
                                                         class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-3 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                         type="button">
-                                                        <a href="/delete/{{.ID}}">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </button>
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
+                                            {{end}}
 
 
                                         </tbody>
