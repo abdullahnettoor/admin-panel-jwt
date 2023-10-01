@@ -53,9 +53,9 @@ func SignupPost(c *gin.Context) {
 	newUser := models.User{
 		Name:     strings.TrimSpace(c.Request.FormValue("name")),
 		Email:    strings.TrimSpace(c.Request.FormValue("email")),
-		Password: strings.TrimSpace(c.Request.Form.Get("password")),
+		Password: strings.TrimSpace(c.Request.FormValue("password")),
 	}
-	confirmPassword := c.Request.Form.Get("confirm-password")
+	confirmPassword := c.Request.FormValue("confirm-password")
 
 	// Check if user exists
 	var users []models.User

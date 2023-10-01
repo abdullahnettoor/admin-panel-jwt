@@ -46,7 +46,7 @@ func LoginPost(c *gin.Context) {
 	// Collect form data
 	user := models.User{
 		Email:    strings.TrimSpace(c.Request.FormValue("email")),
-		Password: strings.TrimSpace(c.Request.Form.Get("password")),
+		Password: strings.TrimSpace(c.Request.FormValue("password")),
 	}
 
 	// Validate user

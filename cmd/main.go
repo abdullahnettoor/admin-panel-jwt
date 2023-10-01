@@ -29,15 +29,11 @@ func main() {
 	r.GET("/logout", handlers.Logout)
 
 	r.GET("/admin", handlers.AdminDashboard)
+	r.GET("/admin/create/user", handlers.LoadCreateUser)
 	r.POST("/admin/create/user", handlers.CreateUser)
-	r.PUT("/admin/update/user:id", handlers.UpdateUser)
-	r.DELETE("/admin/delete/user:id", handlers.DeleteUser)
-
-	// r.GET("/ping", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{
-	// 		"message": "pong",
-	// 	})
-	// })
+	r.GET("/admin/update/user/:id", handlers.LoadUpdateUser)
+	r.POST("/admin/update/user/:id", handlers.UpdateUser)
+	r.POST("/admin/delete/user/:id", handlers.DeleteUser)
 
 	r.Run()
 }
