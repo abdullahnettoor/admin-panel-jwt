@@ -17,6 +17,13 @@ func Signup(c *gin.Context) {
 
 	// Check if user already logged in
 	if utils.ContainValidToken(c) {
+
+		// Check if it is admin
+		if c.GetString("role") == "admin" {
+			c.Redirect(http.StatusFound, "/admin")
+			return
+		}
+
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
@@ -31,6 +38,13 @@ func SignupPost(c *gin.Context) {
 
 	// Check if user already logged in
 	if utils.ContainValidToken(c) {
+
+		// Check if it is admin
+		if c.GetString("role") == "admin" {
+			c.Redirect(http.StatusFound, "/admin")
+			return
+		}
+
 		c.Redirect(http.StatusFound, "/")
 		return
 	}

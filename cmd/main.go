@@ -29,6 +29,9 @@ func main() {
 	r.GET("/logout", handlers.Logout)
 
 	r.GET("/admin", handlers.AdminDashboard)
+	r.POST("/admin/create/user", handlers.CreateUser)
+	r.PUT("/admin/update/user:id", handlers.UpdateUser)
+	r.DELETE("/admin/delete/user:id", handlers.DeleteUser)
 
 	// r.GET("/ping", func(c *gin.Context) {
 	// 	c.JSON(200, gin.H{

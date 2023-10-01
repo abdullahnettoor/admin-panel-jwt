@@ -11,16 +11,25 @@ import (
 func Home(c *gin.Context) {
 	// Clear Cache in browser
 	utils.ClearCache(c)
+	fmt.Println("Entered Home handler")
 
 	// Check if already logged in
 	if utils.ContainValidToken(c) {
-		if uName, ok := c.Get("username"); ok {
-			fmt.Println(uName)
-			c.HTML(http.StatusOK, "index.html", uName)
-		}
-	} else {
-		c.Set("message", "Login to see home")
-		c.Redirect(http.StatusSeeOther, "/login")
-	}
+		fmt.Println("Contains valid token")
 
+		fmt.Println("Checks Admin or User")
+		// Check if it is admin
+		if c.GetString("role") == "admin" {
+			fmt.Println("Role is :", c.GetString("role"))
+			c.Redirect(http.StatusFound, "/admin")
+			fmt.Println("Going Admin Dashboard")
+		} else {
+			c.HTML(http.StatusOK, "index.html", c.GetString("username"))
+			fmt.Println("Going Home")
+		}
+
+	}
+	c.Set("msg", "Login to see home")
+	c.Redirect(http.StatusSeeOther, "/login")
+	fmt.Println("Redircting to Login")
 }

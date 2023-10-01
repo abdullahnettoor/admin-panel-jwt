@@ -17,12 +17,18 @@ func Login(c *gin.Context) {
 
 	// Checks if User already logged in
 	if utils.ContainValidToken(c) {
+
+		if c.GetString("role") == "admin" {
+			c.Redirect(http.StatusFound, "/admin")
+			return
+		}
+
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
 
 	// Load Login
-	msg := c.GetString("message")
+	msg := c.GetString("msg")
 	fmt.Println("Msg is:", msg)
 	c.HTML(http.StatusOK, "login.html", msg)
 }
@@ -63,9 +69,14 @@ func LoginPost(c *gin.Context) {
 
 	// Generate Token and Create Cookie
 	utils.CreateToken(c, dbUser)
-
-	// Load home
 	uName := c.GetString("username")
 	fmt.Println(uName)
+
+	if dbUser.IsAdmin {
+		c.Redirect(http.StatusSeeOther, "/admin")
+		return
+	}
+
+	// Load home
 	c.HTML(http.StatusOK, "index.html", uName)
 }

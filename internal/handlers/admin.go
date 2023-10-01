@@ -17,6 +17,13 @@ func AdminDashboard(c *gin.Context) {
 
 	if utils.ContainValidToken(c) {
 
+		fmt.Println("Is Admin", (c.GetString("role") == "admin"))
+
+		// Check if it is admin
+		if c.GetString("role") != "admin" {
+			c.Redirect(http.StatusSeeOther, "/")
+			return
+		}
 		GetUsers(c)
 		return
 	}
@@ -36,6 +43,13 @@ func GetUsers(c *gin.Context) {
 	dataMap["Admin"] = c.GetString("username")
 
 	c.HTML(http.StatusOK, "admin-panel.html", dataMap)
+}
+
+func CreateUser(c *gin.Context) {
+
+}
+func UpdateUser(c *gin.Context) {
+
 }
 
 func DeleteUser(c *gin.Context) {

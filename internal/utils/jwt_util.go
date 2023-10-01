@@ -8,14 +8,14 @@ import (
 	"github.com/abdullahnettoor/admin-panel-jwt/internal/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
 )
 
 var secretKey = []byte(os.Getenv("KEY"))
 
 type CustomClaims struct {
-	UserID uuid.UUID
-	Name   string
+	Email string
+	Name  string
+	Role  bool
 	jwt.RegisteredClaims
 }
 
@@ -23,8 +23,9 @@ func CreateToken(c *gin.Context, u models.User) {
 
 	// Create the Custom Claims
 	claims := &CustomClaims{
-		u.ID,
+		u.Email,
 		u.Name,
+		u.IsAdmin,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // Token expires in 24 hours
 			Issuer:    "iStore",
@@ -44,8 +45,9 @@ func CreateToken(c *gin.Context, u models.User) {
 
 	// Set cookie from token
 	c.SetCookie("Authorization", ss, 3600, "", "", false, true)
-	c.Set("username", u.Name)
-	fmt.Println("Cookie Created")
+	c.Set("username", claims.Name)
+	c.Set("role", claims.Role)
+	fmt.Println("Cookie Created - Is Admin", claims.Role)
 }
 
 // Validate Token
@@ -77,10 +79,19 @@ func ContainValidToken(c *gin.Context) bool {
 			return false
 		}
 
-		username := claims.Name
+		var role string
 
-		fmt.Println("From JWT", username)
-		c.Set("username", username)
+		if claims.Role {
+			role = "admin"
+		} else {
+			role = "user"
+		}
+
+		fmt.Println("From JWT", claims.Name, "\nRole:", role)
+		c.Set("userEmail", claims.Email)
+		c.Set("username", claims.Name)
+		c.Set("role", role)
+
 		return true
 
 	} else {
