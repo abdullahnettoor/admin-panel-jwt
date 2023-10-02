@@ -42,7 +42,7 @@ func AdminDashboard(c *gin.Context) {
 func GetUsers(c *gin.Context) {
 	var users []models.User
 
-	result := initializers.DB.Find(&users)
+	result := initializers.DB.Order("created_at DESC").Find(&users)
 	if result.Error != nil {
 		fmt.Println("Error fetching users:", result.Error)
 		c.HTML(http.StatusOK, "admin-panel.html", users)
@@ -150,7 +150,7 @@ func LoadUpdateUser(c *gin.Context) {
 	dataMap["Message"] = ""
 
 	// Retrieve id from url
-	id := c.Param("id")
+	id := c.Request.FormValue("id")
 
 	// Fetch user from the db
 	var user models.User
@@ -185,8 +185,8 @@ func UpdateUser(c *gin.Context) {
 	dataMap["Admin"] = c.GetString("username")
 	dataMap["Message"] = ""
 
-	// Get id from url
-	id := c.Param("id")
+	// Get id from request
+	id := c.Request.FormValue("id")
 
 	// Retrieve form data from form
 	user := models.User{
@@ -198,6 +198,11 @@ func UpdateUser(c *gin.Context) {
 	// Check user with email exists
 	result := initializers.DB.Exec("SELECT email FROM users WHERE email = ?", user.Email)
 	if result.Error != nil {
+		dataMap["Message"] = "Error updating user"
+		c.HTML(http.StatusOK, "update-user.html", dataMap)
+		return
+	}
+	if result.RowsAffected > 0 {
 		dataMap["Message"] = "Already user exist with this email"
 		c.HTML(http.StatusOK, "update-user.html", dataMap)
 		return
@@ -237,8 +242,8 @@ func DeleteUser(c *gin.Context) {
 	dataMap["Admin"] = c.GetString("username")
 	dataMap["Message"] = ""
 
-	// Get id from url
-	id := c.Param("id")
+	// Get id from request
+	id := c.Request.FormValue("id")
 
 	// Deleting user with the id
 	result := initializers.DB.Exec(`DELETE FROM users WHERE id = ?`, id)

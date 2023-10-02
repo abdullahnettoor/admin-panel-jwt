@@ -31,9 +31,9 @@ func main() {
 	r.GET("/admin", handlers.AdminDashboard)
 	r.GET("/admin/create/user", handlers.LoadCreateUser)
 	r.POST("/admin/create/user", handlers.CreateUser)
-	r.GET("/admin/update/user/:id", handlers.LoadUpdateUser)
-	r.POST("/admin/update/user/:id", handlers.UpdateUser)
-	r.POST("/admin/delete/user/:id", handlers.DeleteUser)
+	r.POST("/admin/update", handlers.LoadUpdateUser)
+	r.POST("/admin/update/user", handlers.UpdateUser)
+	r.POST("/admin/delete/user", handlers.DeleteUser)
 
 	r.Run()
 }

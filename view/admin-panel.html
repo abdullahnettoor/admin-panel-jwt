@@ -31,7 +31,8 @@
                         <div class="hidden md:block">
                             <div class="ml-10 flex justify-between items-baseline space-x-1">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <a href="/admin/create/user" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                <a href="/admin/create/user"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                                     aria-current="page">Create User</a>
                             </div>
                         </div>
@@ -230,8 +231,8 @@
                                                 <div class="text-left">{{.Email}}</div>
                                             </td>
                                             <td class="p-2 whitespace-nowrap">
-                                                <div class="text-center font-medium text-green-500">{{if
-                                                    .IsAdmin}}Admin{{else}}User{{end}}</div>
+                                                <div class="text-center font-medium text-green-500">
+                                                    {{if .IsAdmin}}Admin{{else}}User{{end}}</div>
                                             </td>
                                             <td class="p-2 whitespace-nowrap">
                                                 <div class="text-left font-medium text-green-500 truncate">
@@ -241,20 +242,23 @@
                                                 <div class="text-left font-medium text-green-500 truncate">
                                                     {{.UpdatedAt}}</div>
                                             </td>
-                                            <td class="p-2 whitespace-nowrap">
-                                                <a href="/admin/update/user/{{.ID}}"
-                                                    class="bg-green-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-3 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                    type="button">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                                <form action="/admin/delete/user/{{.ID}}" method="post">
-                                                    <input type="hidden" name="_method" value="DELETE">
+                                            <td class="p-2 whitespace-nowrap flex">
+                                                <form action="/admin/update" method="post">
+                                                    <input type="hidden" name="id" value="{{.ID}}">
                                                     <button
-                                                    class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-3 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                    type="submit">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                                        class="bg-green-500 text-white active:bg-pink-600 font-bold uppercase text-xs p-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                        type="submit">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                </form>
+                                                <form action="/admin/delete/user" method="post">
+                                                    <input type="hidden" name="id" value="{{.ID}}">
+                                                    <button
+                                                        class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs p-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                        type="submit">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                         {{end}}
