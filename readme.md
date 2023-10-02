@@ -24,9 +24,9 @@ Welcome to My Awesome Web App project! This web application is built using Go, G
 
 ## Getting Started 🚗
 
-1. Clone this repository: `git clone https://github.com/your-username/your-web-app.git`
+1. Clone this repository: `git clone https://github.com/abdullahnettoor/admin-panel-jwt`
 2. Install dependencies: `go mod tidy`
-3. Configure your database in `.env`.
+3. Configure your database uri and secret key in `.env`.
 4. Run the app: `go run main.go`
 
 ## Usage 📝
