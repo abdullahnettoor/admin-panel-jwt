@@ -12,10 +12,11 @@ import (
 
 var secretKey = []byte(os.Getenv("KEY"))
 
+// Create struct for custom claims
 type CustomClaims struct {
-	Email string
-	Name  string
-	Role  bool
+	Email   string
+	Name    string
+	IsAdmin bool
 	jwt.RegisteredClaims
 }
 
@@ -45,14 +46,16 @@ func CreateToken(c *gin.Context, u models.User) {
 
 	// Set cookie from token
 	c.SetCookie("Authorization", ss, 3600, "", "", false, true)
+
+	// Set user values to gin context
 	c.Set("username", claims.Name)
-	c.Set("role", claims.Role)
-	fmt.Println("Cookie Created - Is Admin", claims.Role)
+	c.Set("role", claims.IsAdmin)
 }
 
 // Validate Token
 func ContainValidToken(c *gin.Context) bool {
 
+	// Check if cookie is available and retrieve the token string
 	tokenString, err := c.Cookie("Authorization")
 	if err != nil {
 		fmt.Println("Error occured while validating Cookie:", err)
@@ -63,31 +66,35 @@ func ContainValidToken(c *gin.Context) bool {
 		return false
 	}
 
+	// Parse jwt token with custom claims
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return secretKey, nil
 	}, jwt.WithLeeway(5*time.Second))
 
+	// Check if token is valid
 	if err != nil || !token.Valid {
 		fmt.Println("Error occured whilr fetching token")
 		return false
 	}
 
+	// Assign parsed data from token to calims
 	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
 
+		// Check if token is expired
 		if claims.ExpiresAt.Before(time.Now()) {
 			fmt.Println("Session Expired")
 			return false
 		}
 
+		// Retrieve the role of user from claim
 		var role string
-
-		if claims.Role {
+		if claims.IsAdmin {
 			role = "admin"
 		} else {
 			role = "user"
 		}
 
-		fmt.Println("From JWT", claims.Name, "\nRole:", role)
+		// Set user values to gin context
 		c.Set("userEmail", claims.Email)
 		c.Set("username", claims.Name)
 		c.Set("role", role)
@@ -100,6 +107,7 @@ func ContainValidToken(c *gin.Context) bool {
 	}
 }
 
+// Delete cookie
 func DeleteCookie(c *gin.Context) {
 	c.SetCookie("Authorization", "", 0, "", "", false, true)
 	fmt.Println("Cookie Deleted")

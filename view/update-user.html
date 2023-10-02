@@ -17,15 +17,19 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="Your Company">
+                        <div class="flex items-center space-x-2 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="#fff" viewBox="0 0 24 24">
+                                <title>storefront-outline</title>
+                                <path
+                                    d="M5.06 3C4.63 3 4.22 3.14 3.84 3.42S3.24 4.06 3.14 4.5L2.11 8.91C1.86 10 2.06 10.95 2.72 11.77L3 12.05V19C3 19.5 3.2 20 3.61 20.39S4.5 21 5 21H19C19.5 21 20 20.8 20.39 20.39S21 19.5 21 19V12.05L21.28 11.77C21.94 10.95 22.14 10 21.89 8.91L20.86 4.5C20.73 4.06 20.5 3.7 20.13 3.42C19.77 3.14 19.38 3 18.94 3H5.06M18.89 4.97L19.97 9.38C20.06 9.81 19.97 10.2 19.69 10.55C19.44 10.86 19.13 11 18.75 11C18.44 11 18.17 10.9 17.95 10.66C17.73 10.43 17.61 10.16 17.58 9.84L16.97 5L18.89 4.97M5.06 5H7.03L6.42 9.84C6.3 10.63 5.91 11 5.25 11C4.84 11 4.53 10.86 4.31 10.55C4.03 10.2 3.94 9.81 4.03 9.38L5.06 5M9.05 5H11V9.7C11 10.05 10.89 10.35 10.64 10.62C10.39 10.88 10.08 11 9.7 11C9.36 11 9.07 10.88 8.84 10.59S8.5 10 8.5 9.66V9.5L9.05 5M13 5H14.95L15.5 9.5C15.58 9.92 15.5 10.27 15.21 10.57C14.95 10.87 14.61 11 14.2 11C13.89 11 13.61 10.88 13.36 10.62C13.11 10.35 13 10.05 13 9.7V5M7.45 12.05C8.08 12.67 8.86 13 9.8 13C10.64 13 11.38 12.67 12 12.05C12.69 12.67 13.45 13 14.3 13C15.17 13 15.92 12.67 16.55 12.05C17.11 12.67 17.86 13 18.8 13H19.03V19H5V13H5.25C6.16 13 6.89 12.67 7.45 12.05Z" />
+                            </svg>
+                            <h1 class="text-xl xl:text-xl xl:text-xl font-bold text-gray-100 tracking-wider">iStore.</h1>
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex justify-between items-baseline space-x-1">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <a href="/admin" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                    aria-current="page">Users</a>
+                                    aria-current="page">Dashboard</a>
                             </div>
                         </div>
                         <div class="hidden md:block">
@@ -71,31 +75,38 @@
                     </div>
 
                 </div>
-                <div class="-mr-2 flex md:hidden">
-                    <!-- Mobile menu button -->
-                    <button type="button"
-                        class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="absolute -inset-0.5"></span>
-                        <span class="sr-only">Open main menu</span>
-                        <!-- Menu open: "hidden", Menu closed: "block" -->
-                        <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
-                        <!-- Menu open: "block", Menu closed: "hidden" -->
-                        <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+               
+            </div>
+            <div class="md:hidden" id="mobile-menu">
+                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                    <a href="/admin" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                        aria-current="page">Dashboard</a>
+                    <a href="/admin/create/user"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Create
+                        User</a>
+                </div>
+                <div class="border-t border-gray-700 pb-3 pt-4">
+                    <div class="flex justify-between items-center px-5">
+                        <div class="flex space-x-2">
+                            <i class="far fa-user text-gray-100"></i>
+                            <div class="text-base font-medium leading-none text-gray-100">{{.Admin}}</div>
+                        </div>
+                        <a href="/logout"
+                            class="flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-sign-out-alt pr-1"></i>
+                            Logout</a>
+                    </div>
+                    <div class="mt-3 space-y-1 px-2">
+                    </div>
                 </div>
             </div>
+        </nav>
     </div>
     <!-- component -->
     <div class="flex items-center justify-center p-12">
         <div class="mx-auto w-full max-w-[550px]">
+            <h1 class="text-2xl mb-4 font-bold">Update user</h1>
             <form action="/admin/update/user" method="POST">
                 <input type="hidden" name="id" value="{{.User.ID}}">
                 <div class="mb-5">

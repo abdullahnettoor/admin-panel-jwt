@@ -42,7 +42,7 @@ func AdminDashboard(c *gin.Context) {
 func GetUsers(c *gin.Context) {
 	var users []models.User
 
-	result := initializers.DB.Order("created_at DESC").Find(&users)
+	result := initializers.DB.Order("created_at DESC").Where("is_admin = false").Find(&users)
 	if result.Error != nil {
 		fmt.Println("Error fetching users:", result.Error)
 		c.HTML(http.StatusOK, "admin-panel.html", users)
@@ -196,13 +196,14 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	// Check user with email exists
-	result := initializers.DB.Exec("SELECT email FROM users WHERE email = ?", user.Email)
+	var currentUser string
+	result := initializers.DB.Raw("SELECT email FROM users WHERE email = ?", user.Email).Scan(&currentUser)
 	if result.Error != nil {
 		dataMap["Message"] = "Error updating user"
 		c.HTML(http.StatusOK, "update-user.html", dataMap)
 		return
 	}
-	if result.RowsAffected > 0 {
+	if result.RowsAffected > 0 && user.Email != currentUser {
 		dataMap["Message"] = "Already user exist with this email"
 		c.HTML(http.StatusOK, "update-user.html", dataMap)
 		return
