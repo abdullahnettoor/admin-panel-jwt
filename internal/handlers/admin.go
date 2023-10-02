@@ -196,14 +196,14 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	// Check user with email exists
-	var currentUser string
-	result := initializers.DB.Raw("SELECT email FROM users WHERE email = ?", user.Email).Scan(&currentUser)
+	var currentUserEmail string
+	result := initializers.DB.Raw("SELECT email FROM users WHERE email = ?", user.Email).Scan(&currentUserEmail)
 	if result.Error != nil {
 		dataMap["Message"] = "Error updating user"
 		c.HTML(http.StatusOK, "update-user.html", dataMap)
 		return
 	}
-	if result.RowsAffected > 0 && user.Email != currentUser {
+	if result.RowsAffected > 0 && user.Email != currentUserEmail {
 		dataMap["Message"] = "Already user exist with this email"
 		c.HTML(http.StatusOK, "update-user.html", dataMap)
 		return
