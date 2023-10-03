@@ -14,6 +14,7 @@ func Logout(c *gin.Context) {
 	// Delete existing cookie
 	utils.DeleteCookie(c)
 
-	c.Set("message", "Logged out succesfully")
+	// Redirect to login
+	c.Set("msg", "Logged out succesfully")
 	c.Redirect(http.StatusSeeOther, "/login")
 }

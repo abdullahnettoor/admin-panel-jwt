@@ -45,6 +45,7 @@ func SignupPost(c *gin.Context) {
 			return
 		}
 
+		// Redirect to home
 		c.Redirect(http.StatusFound, "/")
 		return
 	}

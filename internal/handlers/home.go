@@ -20,15 +20,18 @@ func Home(c *gin.Context) {
 		fmt.Println("Checks Admin or User")
 		// Check if it is admin
 		if c.GetString("role") == "admin" {
+			// Redirect to Admin Dashboard
 			fmt.Println("Role is :", c.GetString("role"))
 			c.Redirect(http.StatusFound, "/admin")
 			fmt.Println("Going Admin Dashboard")
 		} else {
+			// User is not admin, so redirecting to Home page
 			c.HTML(http.StatusOK, "index.html", c.GetString("username"))
 			fmt.Println("Going Home")
 		}
 
 	}
+	// Redirect to Login Page
 	c.Set("msg", "Login to see home")
 	c.Redirect(http.StatusSeeOther, "/login")
 	fmt.Println("Redircting to Login")
