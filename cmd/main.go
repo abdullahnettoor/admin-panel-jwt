@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/abdullahnettoor/admin-panel-jwt/internal/handlers"
 	"github.com/abdullahnettoor/admin-panel-jwt/internal/initializers"
 	"github.com/gin-gonic/gin"
@@ -15,12 +13,15 @@ func init() {
 }
 
 func main() {
-	fmt.Println("Hello World!")
 
+	// Create Server
 	r := gin.Default()
+
+	// Load templates and static files
 	r.LoadHTMLGlob("view/*.html")
 	r.Static("/static", "./static")
 
+	// Handle User actions
 	r.GET("/", handlers.Home)
 	r.GET("/login", handlers.Login)
 	r.POST("/login", handlers.LoginPost)
@@ -28,6 +29,7 @@ func main() {
 	r.POST("/signup", handlers.SignupPost)
 	r.GET("/logout", handlers.Logout)
 
+	// Handle Admin actions
 	r.GET("/admin", handlers.AdminDashboard)
 	r.GET("/admin/create/user", handlers.LoadCreateUser)
 	r.POST("/admin/create/user", handlers.CreateUser)
@@ -35,5 +37,6 @@ func main() {
 	r.POST("/admin/update/user", handlers.UpdateUser)
 	r.POST("/admin/delete/user", handlers.DeleteUser)
 
-	r.Run()
+	// Run Server
+	r.Run(":8080")
 }
