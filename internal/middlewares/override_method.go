@@ -17,13 +17,17 @@ func OverrideMethod(c *gin.Context) {
 
 	fmt.Println("⚠️ Initial Method is", c.Request.Method)
 
+	// Check if the request we are getting from html is POST
 	if c.Request.Method == "POST" {
 
+		// Retreive data from the input filed in html.
+		// For Example: <input type="hidden" name="_method" value="PUT" />
 		method := c.Request.FormValue("_method")
 		if method == "" {
 			c.Next()
 		}
 
+		// if the value is other than POST convert the request method in to Specified method
 		if method == "PUT" || method == "PATCH" || method == "DELETE" {
 			c.Request.Method = method
 		}
