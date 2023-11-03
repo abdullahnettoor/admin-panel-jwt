@@ -9,6 +9,7 @@ import (
 
 var DB *gorm.DB
 
+// Establish Postgress Connection
 func ConnectToDB() {
 	var err error
 	dsn := os.Getenv("DB")
